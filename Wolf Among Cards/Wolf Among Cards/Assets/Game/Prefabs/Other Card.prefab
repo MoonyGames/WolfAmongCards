@@ -475,3 +475,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data: {fileID: 0}
   _selectedColor: {r: 0.5, g: 0.5, b: 1, a: 1}
+  _cardDatas:
+  - {fileID: 11400000, guid: 43445ee6edf6b45e382f68f00c9930b9, type: 2}
+  - {fileID: 11400000, guid: a31507771ead54d41aa37bbb33780ddc, type: 2}
+  - {fileID: 11400000, guid: fcf4cd5f0a3e047aeb4db704df1a32ba, type: 2}
+  - {fileID: 11400000, guid: 17746221d90e7439995a13ba75d2ff05, type: 2}
+  - {fileID: 11400000, guid: 26a5bfeb45ebc44ffbd75c31374becae, type: 2}
