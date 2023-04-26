@@ -74,6 +74,8 @@ public class CardsPooler : MonoBehaviour
                     _wolfCard.transform.SetParent(_triangleParent);
                     _wolfCard.SetActive(true);
 
+                    TossCards.instance.Cards.Add(_wolfCard.GetComponent<Card>());
+
                     _wolfIsGenerated = true;
 
                     newPosition = _wolfCard.transform.position;
@@ -81,11 +83,12 @@ public class CardsPooler : MonoBehaviour
 
                 else
                 {
-                    Debug.Log(delta);
                     GameObject otherCard = GetPooledObject();
                     otherCard.transform.position = newPosition + delta;
                     otherCard.transform.SetParent(_triangleParent);
                     otherCard.SetActive(true);
+
+                    TossCards.instance.Cards.Add(otherCard.GetComponent<Card>());
 
                     newPosition = otherCard.transform.position;
                 }
@@ -93,5 +96,7 @@ public class CardsPooler : MonoBehaviour
         }
 
         _triangleParent.position = new Vector3(-5f, 0f, 5 * Level);
+
+        TossCards.instance.Toss(3);
     }
 }

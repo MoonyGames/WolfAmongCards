@@ -75,6 +75,11 @@ public class Card : MonoBehaviour
         transform.DOScale(0f, 0.3f);
     }
 
+    public void MoveTo(Vector3 position)
+    {
+        transform.DOMove(position, 1f);
+    }
+
     protected void OnMouseEnter()
     {
         SelectedAnimation();
