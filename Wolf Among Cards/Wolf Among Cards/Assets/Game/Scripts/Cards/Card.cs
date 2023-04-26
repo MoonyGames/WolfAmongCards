@@ -15,6 +15,8 @@ public class Card : MonoBehaviour
 
     protected AudioSource _audioSource;
 
+    protected bool _flipping = false;
+
     [SerializeField]
     protected Color _selectedColor;
 
@@ -40,7 +42,7 @@ public class Card : MonoBehaviour
     {
         _meshRenderer.material.DOColor(_selectedColor, 0.5f);
 
-        transform.DOMoveY(5f, 0.3f).SetEase(Ease.InOutQuad);
+        transform.DOMoveY(3f, 0.3f).SetEase(Ease.InOutQuad);
     }
 
     protected void DeselectedAnimation()
@@ -52,8 +54,13 @@ public class Card : MonoBehaviour
 
     protected void FlipAnimation()
     {
-        transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad);
-        transform.DOLocalRotate(new Vector3(0, 0, 180f), 0.5f).SetEase(Ease.InOutQuad).SetRelative();
+        if (!_flipping)
+        {
+            _flipping = true;
+
+            transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad);
+            transform.DOLocalRotate(new Vector3(0, 0, 180f), 0.6f).SetEase(Ease.InOutQuad).SetRelative().OnComplete(() => { _flipping = false; });
+        }
     }
 
     protected void AppearAnimation()
