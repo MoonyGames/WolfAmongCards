@@ -13,9 +13,4 @@ public class OtherCard : Card
 
         base.OnEnable();
     }
-
-    protected override void OnMouseDown()
-    {
-        base.OnMouseDown();
-    }
 }

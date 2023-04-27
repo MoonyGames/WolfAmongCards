@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CardsPooler))]
 public class TossCards : MonoBehaviour
 {
-    public static TossCards instance = null;
+    public static TossCards Instance { get; private set; } = null;
 
     [SerializeField]
     private float _iterationsCount, _timeBetweenIterations;
@@ -19,8 +19,8 @@ public class TossCards : MonoBehaviour
     {
         Time.timeScale = _timeMultiplier;
 
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(this);
 
@@ -49,14 +49,20 @@ public class TossCards : MonoBehaviour
 
     private IEnumerator TossByTimeAndCount()
     {
+        StatusTextController.Instance.ChangeStatus("Ready...");
+
         yield return new WaitForSeconds(Card.timeToSee + 1f);
 
-        for(int i = 0; i < _iterationsCount; i++)
+        StatusTextController.Instance.ChangeStatus("Tossing...");
+
+        for (int i = 0; i < _iterationsCount; i++)
         {
             Toss();
 
             yield return new WaitForSeconds(_timeBetweenIterations);
         }
+
+        StatusTextController.Instance.ChangeStatus("Choose!");
 
         Card.canBeChoosen = true;
 

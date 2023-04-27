@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardName: Walrus
   _icon: {fileID: 21300000, guid: afc7bf56f0a03431287434aaaec5910b, type: 3}
-  _cost: -30
+  _cost: -50

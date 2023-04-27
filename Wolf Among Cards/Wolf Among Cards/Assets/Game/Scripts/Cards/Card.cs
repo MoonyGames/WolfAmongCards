@@ -103,6 +103,8 @@ public class Card : MonoBehaviour
             _isFlipped = true;
 
             FlipAnimation();
+
+            ScoresCounter.Instance.AddScores(_data.Cost);
         }
     }
 }

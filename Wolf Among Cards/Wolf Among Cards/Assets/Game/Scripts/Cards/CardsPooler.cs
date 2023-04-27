@@ -29,7 +29,7 @@ public class CardsPooler : MonoBehaviour
 
     private void Awake()
     {
-        Level = 1;
+        Level = 2;
 
         if (Instance == null)
             Instance = this;

@@ -16,6 +16,8 @@ public class WolfCard : Card
 
             CardsPooler.Instance.Level++;
 
+            ScoresCounter.Instance.AddScores(_data.Cost);
+
             StartCoroutine(DeactivateCardsByTimer(3f));
         }
     }
