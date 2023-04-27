@@ -1,7 +1,6 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class Card : MonoBehaviour
 {
@@ -16,6 +15,8 @@ public class Card : MonoBehaviour
     protected AudioSource _audioSource;
 
     protected bool _flipping = false;
+
+    public static float timeToSee = 4;
 
     [SerializeField]
     protected Color _selectedColor;
@@ -35,7 +36,7 @@ public class Card : MonoBehaviour
 
         AppearAnimation();
 
-        Invoke(nameof(FlipAnimation), 2f);
+        Invoke(nameof(FlipAnimation), timeToSee);
     }
 
     protected void SelectedAnimation()

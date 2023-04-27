@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CardsPooler : MonoBehaviour
 {
@@ -22,6 +21,9 @@ public class CardsPooler : MonoBehaviour
     private Transform _triangleParent;
 
     private bool _wolfIsGenerated = false;
+
+    public delegate void GenerationEnd();
+    public static event GenerationEnd OnGenerationEnd;
 
     private void Awake() { Level = 3; }
 
@@ -97,6 +99,6 @@ public class CardsPooler : MonoBehaviour
 
         _triangleParent.position = new Vector3(-5f, 0f, 5 * Level);
 
-        TossCards.instance.Toss(3);
+        OnGenerationEnd?.Invoke();
     }
 }

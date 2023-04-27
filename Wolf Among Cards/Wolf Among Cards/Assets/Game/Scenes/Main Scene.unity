@@ -247,7 +247,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 90
-  orthographic: 0
+  orthographic: 1
   orthographic size: 45
   m_Depth: -1
   m_CullingMask:
@@ -507,6 +507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cards: []
+  _iterationsCount: 3
+  _timeBetweenIterations: 1
 --- !u!1 &1568429574
 GameObject:
   m_ObjectHideFlags: 0
