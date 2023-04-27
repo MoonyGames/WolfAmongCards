@@ -36,6 +36,8 @@ public class Card : MonoBehaviour
         _text.text = _data.CardName;
         _sprite.sprite = _data.Icon;
 
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
         AppearAnimation();
 
         Invoke(nameof(FlipAnimation), timeToSee);
@@ -73,9 +75,9 @@ public class Card : MonoBehaviour
         transform.DOScale(1f, 0.3f);
     }
 
-    protected void DisappearAnimation()
+    public void DisappearAnimation()
     {
-        transform.DOScale(0f, 0.3f);
+        transform.DOScale(0f, 0.3f).OnComplete(() => { gameObject.SetActive(false); });
     }
 
     public void MoveTo(Vector3 position)

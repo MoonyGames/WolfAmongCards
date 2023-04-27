@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardsPooler))]
 public class TossCards : MonoBehaviour
 {
     public static TossCards instance = null;
@@ -18,7 +19,10 @@ public class TossCards : MonoBehaviour
     {
         Time.timeScale = _timeMultiplier;
 
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
 
         CardsPooler.OnGenerationEnd += StartTossByTimeAndCount;
     }

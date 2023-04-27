@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class CardsPooler : MonoBehaviour
 {
-    public static bool IsGenerating { get; set; } = false;
+    public static CardsPooler Instance { get; private set; } = null;
 
-    public static int Level;
+    public int Level { get; set; }
 
     private List<GameObject> _pooledObjects;
 
@@ -27,7 +27,15 @@ public class CardsPooler : MonoBehaviour
     public delegate void GenerationEnd();
     public static event GenerationEnd OnGenerationEnd;
 
-    private void Awake() { Level = 1; }
+    private void Awake()
+    {
+        Level = 1;
+
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     private void Start()
     {
@@ -41,10 +49,7 @@ public class CardsPooler : MonoBehaviour
             _pooledObjects.Add(tmp);
         }
 
-        _wolfCard = Instantiate(_wolfCard, _poolParent);
-        _wolfCard.SetActive(false);
-
-        GenerateTriangle(Level);
+        GenerateTriangle();
     }
 
     private GameObject GetPooledObject()
@@ -58,13 +63,18 @@ public class CardsPooler : MonoBehaviour
         return null;
     }
 
-    private void GenerateTriangle(int level)
+    public void GenerateTriangle()
     {
         Cards.Clear();
-
         Vector3 newPosition;
+        _triangleParent.position = Vector3.zero;
 
-        for(int i = 0; i < 1 + level; i++)
+        _wolfIsGenerated = false;
+
+        _wolfCard = Instantiate(_wolfCard, _poolParent);
+        _wolfCard.SetActive(false);
+
+        for (int i = 0; i < 1 + Level; i++)
         {
             newPosition = new Vector3(-5f * i, 0f, -10f * i);
 
@@ -74,7 +84,7 @@ public class CardsPooler : MonoBehaviour
 
                 int randomNumber = Random.Range(0, 2);
 
-                if ((!_wolfIsGenerated && randomNumber == 0) || (!_wolfIsGenerated && y == i - 2))
+                if (!_wolfIsGenerated && y == 0)
                 {
                     _wolfCard.transform.position = newPosition + delta;
                     _wolfCard.transform.SetParent(_triangleParent);
@@ -104,5 +114,16 @@ public class CardsPooler : MonoBehaviour
         _triangleParent.position = new Vector3(-5f, 0f, 5 * Level);
 
         OnGenerationEnd?.Invoke();
+    }
+
+    public void DeactivateCards()
+    {
+        for(int i = 0; i < Cards.Count; i++)
+        {
+            Cards[i].transform.SetParent(_poolParent);
+            Cards[i].DisappearAnimation();
+        }
+
+        GenerateTriangle();
     }
 }
