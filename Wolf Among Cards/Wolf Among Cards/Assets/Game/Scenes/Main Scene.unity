@@ -491,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectsToPool: {fileID: 7269737387076881401, guid: 44f114b4468f344609222ca669fab755, type: 3}
   _wolfCard: {fileID: 7269737387076881401, guid: 2bf12e96b6aaa45448ea21b70b96d18b, type: 3}
-  _amountToPool: 100
+  _amountToPool: 300
   _poolParent: {fileID: 313293481}
   _triangleParent: {fileID: 1975464407}
 --- !u!114 &988695817
@@ -507,8 +507,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cards: []
-  _iterationsCount: 3
+  _iterationsCount: 10
   _timeBetweenIterations: 1
+  _timeMultiplier: 2
 --- !u!1 &1568429574
 GameObject:
   m_ObjectHideFlags: 0

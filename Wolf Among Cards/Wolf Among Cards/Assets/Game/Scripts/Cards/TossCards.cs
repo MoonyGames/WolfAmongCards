@@ -6,16 +6,18 @@ public class TossCards : MonoBehaviour
 {
     public static TossCards instance = null;
 
-    [HideInInspector]
-    public List<Card> Cards = new List<Card>();
-
     [SerializeField]
     private float _iterationsCount, _timeBetweenIterations;
+
+    [SerializeField]
+    private float _timeMultiplier = 2f;
 
     private List<int> _cardsIndexes = new List<int>();
 
     private void Awake()
     {
+        Time.timeScale = _timeMultiplier;
+
         instance = this;
 
         CardsPooler.OnGenerationEnd += StartTossByTimeAndCount;
@@ -23,7 +25,7 @@ public class TossCards : MonoBehaviour
 
     private void UpdateLength()
     {
-        for(int i = 0; i < Cards.Count; i++)
+        for(int i = 0; i < CardsPooler.Cards.Count; i++)
             _cardsIndexes.Add(i);
     }
 
@@ -31,11 +33,11 @@ public class TossCards : MonoBehaviour
     {
         UpdateLength();
 
-        for (int y = 0; y < Cards.Count; y++)
+        for (int y = 0; y < CardsPooler.Cards.Count; y++)
         {
             int randomNumber = Random.Range(0, _cardsIndexes.Count);
 
-            Cards[y].MoveTo(Cards[_cardsIndexes[randomNumber]].transform.position);
+            CardsPooler.Cards[y].MoveTo(CardsPooler.Cards[_cardsIndexes[randomNumber]].transform.position);
 
             _cardsIndexes.RemoveAt(randomNumber);
         }
@@ -52,7 +54,8 @@ public class TossCards : MonoBehaviour
             yield return new WaitForSeconds(_timeBetweenIterations);
         }
 
-        Cards.Clear();
+        Card.canBeChoosen = true;
+
         _cardsIndexes.Clear();
     }
 

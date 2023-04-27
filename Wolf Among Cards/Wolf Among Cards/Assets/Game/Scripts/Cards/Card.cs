@@ -14,9 +14,11 @@ public class Card : MonoBehaviour
 
     protected AudioSource _audioSource;
 
-    protected bool _flipping = false;
+    protected bool _isFlipping = false, _isFlipped = false;
 
     public static float timeToSee = 4;
+
+    public static bool canBeChoosen = false;
 
     [SerializeField]
     protected Color _selectedColor;
@@ -55,12 +57,12 @@ public class Card : MonoBehaviour
 
     protected void FlipAnimation()
     {
-        if (!_flipping)
+        if (!_isFlipping)
         {
-            _flipping = true;
+            _isFlipping = true;
 
             transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad);
-            transform.DOLocalRotate(new Vector3(0, 0, 180f), 0.6f).SetEase(Ease.InOutQuad).SetRelative().OnComplete(() => { _flipping = false; });
+            transform.DOLocalRotate(new Vector3(0, 0, 180f), 0.6f).SetEase(Ease.InOutQuad).SetRelative().OnComplete(() => { _isFlipping = false; });
         }
     }
 
@@ -83,7 +85,8 @@ public class Card : MonoBehaviour
 
     protected void OnMouseEnter()
     {
-        SelectedAnimation();
+        if (!_isFlipped)
+            SelectedAnimation();
     }
 
     protected void OnMouseExit()
@@ -93,6 +96,11 @@ public class Card : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        FlipAnimation();
+        if (!_isFlipped && canBeChoosen)
+        {
+            _isFlipped = true;
+
+            FlipAnimation();
+        }
     }
 }

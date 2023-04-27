@@ -9,6 +9,8 @@ public class CardsPooler : MonoBehaviour
 
     private List<GameObject> _pooledObjects;
 
+    public static List<Card> Cards = new List<Card>();
+
     [SerializeField]
     private GameObject _objectsToPool, _wolfCard;
     [SerializeField]
@@ -25,7 +27,7 @@ public class CardsPooler : MonoBehaviour
     public delegate void GenerationEnd();
     public static event GenerationEnd OnGenerationEnd;
 
-    private void Awake() { Level = 3; }
+    private void Awake() { Level = 1; }
 
     private void Start()
     {
@@ -58,6 +60,8 @@ public class CardsPooler : MonoBehaviour
 
     private void GenerateTriangle(int level)
     {
+        Cards.Clear();
+
         Vector3 newPosition;
 
         for(int i = 0; i < 1 + level; i++)
@@ -70,13 +74,13 @@ public class CardsPooler : MonoBehaviour
 
                 int randomNumber = Random.Range(0, 2);
 
-                if (!_wolfIsGenerated && randomNumber == 0)
+                if ((!_wolfIsGenerated && randomNumber == 0) || (!_wolfIsGenerated && y == i - 2))
                 {
                     _wolfCard.transform.position = newPosition + delta;
                     _wolfCard.transform.SetParent(_triangleParent);
                     _wolfCard.SetActive(true);
 
-                    TossCards.instance.Cards.Add(_wolfCard.GetComponent<Card>());
+                    Cards.Add(_wolfCard.GetComponent<Card>());
 
                     _wolfIsGenerated = true;
 
@@ -90,7 +94,7 @@ public class CardsPooler : MonoBehaviour
                     otherCard.transform.SetParent(_triangleParent);
                     otherCard.SetActive(true);
 
-                    TossCards.instance.Cards.Add(otherCard.GetComponent<Card>());
+                    Cards.Add(otherCard.GetComponent<Card>());
 
                     newPosition = otherCard.transform.position;
                 }
