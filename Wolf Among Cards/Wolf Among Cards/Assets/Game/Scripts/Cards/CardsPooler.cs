@@ -11,6 +11,8 @@ public class CardsPooler : MonoBehaviour
 
     public static List<Card> Cards = new List<Card>();
 
+    public GameObject LooseScreen;
+
     [SerializeField]
     private GameObject _objectsToPool, _wolfCard;
     [SerializeField]

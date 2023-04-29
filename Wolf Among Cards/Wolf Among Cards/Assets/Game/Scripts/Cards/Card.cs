@@ -23,8 +23,12 @@ public class Card : MonoBehaviour
     [SerializeField]
     protected Color _selectedColor;
 
+    protected GameObject _looseScreen;
+
     protected void Awake()
     {
+        _looseScreen = GameObject.Find("Loose Screen");
+
         _text = transform.GetChild(0).GetComponent<TextMeshPro>();
         _sprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
 
